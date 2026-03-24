@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>武林通缉令：偷心盗贼</title>
     <style>
+        /* 基础背景设置 */
         body {
-            background-color: #2c1e16; /* 深色背景烘托氛围 */
+            background-color: #1a120d; /* 更深的背景色，突显霓虹感 */
             background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
             margin: 0;
             display: flex;
@@ -15,89 +16,156 @@
             min-height: 100vh;
             font-family: "Microsoft YaHei", "STKaiti", serif;
             color: #4a3428;
+            overflow-x: hidden;
         }
 
         /* 通缉令主容器 */
         .poster {
             background: #e6c794; /* 仿旧纸张颜色 */
             padding: 30px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 100px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9), inset 0 0 100px rgba(139, 69, 19, 0.2);
             border: 12px double #5d4037;
-            max-width: 500px;
+            max-width: 480px;
             width: 90%;
             text-align: center;
             position: relative;
-            transform: rotate(-1deg); /* 稍微倾斜增加真实感 */
+            transform: rotate(-0.5deg); /* 微小的倾斜增加真实感 */
+            margin: 20px;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin: 10px 0;
             letter-spacing: 15px;
             border-bottom: 4px solid #4a3428;
             padding-bottom: 10px;
             font-weight: 900;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
+        /* 霓虹灯照片容器 */
         .image-container {
-            border: 5px solid #4a3428;
-            margin: 20px 0;
+            border: 4px solid #fff; /* 霓虹灯管心线 */
+            margin: 25px 0;
             line-height: 0;
+            position: relative;
             overflow: hidden;
+            background: #000;
+            /* 初始霓虹阴影：白光 + 蓝光层叠 */
+            box-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px #00f3ff,
+                0 0 40px #00f3ff,
+                0 0 60px #00f3ff;
+            /* 呼吸闪烁动画 */
+            animation: neon-glow 2s infinite alternate;
         }
 
         .image-container img {
             width: 100%;
             height: auto;
-            filter: sepia(0.3) contrast(1.1); /* 稍微调色匹配复古风 */
+            display: block;
+            filter: sepia(0.2) contrast(1.1); /* 稍微复古色调 */
+            transition: transform 0.5s;
         }
 
+        /* 照片上的扫光特效 */
+        .image-container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: scan-light 4s infinite;
+        }
+
+        /* 霓虹呼吸动画 */
+        @keyframes neon-glow {
+            0% {
+                box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00f3ff, 0 0 40px #00f3ff;
+                border-color: #fff;
+            }
+            100% {
+                box-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 15px #00f3ff, 0 0 25px #00f3ff;
+                border-color: #adffff;
+                filter: brightness(1.1);
+            }
+        }
+
+        /* 扫光动画 */
+        @keyframes scan-light {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* 文案内容区 */
         .content {
             text-align: left;
             padding: 0 10px;
         }
 
         .crime-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
             text-align: center;
             margin-bottom: 15px;
-            color: #8b0000; /* 暗红色突出危险性 */
+            color: #8b0000;
+            text-decoration: underline;
         }
 
         .details {
             line-height: 1.8;
             font-size: 1.1rem;
+            color: #3d2b1f;
         }
 
+        /* 赏金展示 */
         .bounty {
-            margin-top: 25px;
+            margin-top: 30px;
             font-size: 1.8rem;
-            color: #8b0000;
+            color: #eee;
+            background: #8b0000; /* 暗红色背景 */
             font-weight: bold;
-            border: 2px dashed #8b0000;
             padding: 10px;
-            display: inline-block;
-            width: 100%;
-            box-sizing: border-box;
+            display: block;
+            letter-spacing: 5px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
+        /* 六扇门印章 */
         .stamp {
             position: absolute;
-            bottom: 20px;
+            bottom: 60px;
             right: 20px;
-            width: 80px;
-            height: 80px;
-            border: 3px solid #b22222;
+            width: 70px;
+            height: 70px;
+            border: 4px solid #b22222;
             border-radius: 50%;
             color: #b22222;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            transform: rotate(20deg);
-            opacity: 0.7;
-            font-size: 0.8rem;
+            transform: rotate(25deg);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        /* 适配手机端 */
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; letter-spacing: 10px; }
+            .poster { padding: 15px; }
         }
     </style>
 </head>
